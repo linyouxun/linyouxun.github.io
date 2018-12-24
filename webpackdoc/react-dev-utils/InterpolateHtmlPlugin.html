@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>InterpolateHtmlPlugin 向HtmlWebpackPlugin注入参数</title>
+</head>
+<body>
+  <p>
+    向HtmlWebpackPlugin注入参数
+  </p>
+
+  <p>
+    例子
+    <span>&nbsp;&lt;link&nbsp;rel="shortcut&nbsp;icon"&nbsp;href="%PUBLIC_URL%/favicon.ico"&gt;</span>
+    <div class="line"><span class="source js"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta class instance constructor js"><span class="keyword operator js"><span>new</span></span><span>&nbsp;</span><span class="entity name type instance js"><span>InterpolateHtmlPlugin</span></span></span><span class="meta brace round js"><span>(</span></span><span>HtmlWebpackPlugin</span><span class="meta delimiter object comma js"><span>,</span></span><span>&nbsp;</span><span class="meta brace curly js"><span>{</span></span></span></div>
+    <div class="line"><span class="source js"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="constant other js"><span>PUBLIC_URL</span></span><span class="keyword operator assignment js"><span>:</span></span><span>&nbsp;publicUrl</span><span class="meta delimiter object comma js"><span>,</span></span></span></div>
+    <div class="line"><span class="source js"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="meta brace curly js"><span>}</span></span><span class="meta brace round js"><span>)</span></span><span class="meta delimiter object comma js"><span>,</span></span></span></div>
+  </p>
+
+  <p>
+    参考链接：
+    <hr>
+    <a href="https://www.npmjs.com/package/react-dev-utils">https://www.npmjs.com/package/react-dev-utils</a>
+  </p>
+
+</body>
+</html>

@@ -14,7 +14,7 @@ function writeHead() {
   <title>Document</title>
   <script>
     /**
-     * 创建时间 ${new Date().toDateString()}
+     * 更新时间 ${new Date().toDateString()}
      */
   </script>
 </head>
@@ -39,7 +39,7 @@ function writeFooter() {
  */
 function writeBlock(name, url) {
   return `
-  <a href="${url}">${name}</a>
+  <a style="display: block;height: 30px; line-height: 30px;" href="${url}">${name}</a>
 `;
 }
 
