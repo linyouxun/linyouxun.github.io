@@ -5,10 +5,224 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>简单脚本注入</title>
+  <style>
+    [class*="fontelico-"]:before {
+      font-family: 'fontelico', sans-serif;
+    }
+
+    .logo.navbar-brand {
+      height: 40px;
+      line-height: 40px;
+      margin: 20px 0;
+      padding: 0;
+    }
+
+    .flat-window-container {
+      color: white;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    }
+
+    .flat-window-header {
+      background-color: #323232;
+      font-size: 13px;
+      font-weight: bold;
+      height: 33px;
+      padding: 0 15px;
+      position: relative;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .flat-window-header > div {
+      height: 100%;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .flat-window-button-group {
+      position: absolute;
+    }
+
+    .flat-window-button {
+      border-radius: 13px;
+      height: 13px;
+      margin-right: 5px;
+      width: 13px;
+    }
+
+    .flat-window-button-close {
+      background-color: #f8645f;
+    }
+
+    .flat-window-button-minimize {
+      background-color: #f8c574;
+    }
+
+    .flat-window-button-maximize {
+      background-color: #9dcc7d;
+    }
+
+    .flat-window-title-bar {
+
+    }
+
+    .flat-window-middle > * {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .flat-window-body {
+      background-color: #363636;
+      padding: 0 15px;
+      border-radius: 0 0 15px 15px;
+    }
+
+    .flat-window-middle:before {
+      content: " ";
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    pre.source-code {
+      background: none;
+      border: none;
+      font-size: 14px;
+      line-height: 1.42857143;
+    }
+
+    .flat-browser {
+      color: #363636;
+      text-shadow: 1px 1px 1px rgba(255, 255, 255, .5);
+    }
+
+    .flat-browser .flat-window-header {
+      background-color: #e2e2e2;
+      height: 52px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .flat-browser .flat-window-body {
+      background-color: #f7f7f7;
+      border-radius: 0 0 10px 10px;
+      padding: 0 0px;
+    }
+
+    .flat-browser iframe {
+      border: none;
+      overflow: hidden;
+      pointer-events: none;
+      width: 100%;
+    }
+
+    .viewable {
+      pointer-events: auto !important;
+    }
+
+    .flat-browser .flat-browser-address-bar {
+      background-color: white;
+      border-radius: 15px;
+      display: inline-block;
+      height: 24px;
+      overflow: hidden;
+      padding: 0 15px;
+      text-align: left;
+      white-space: nowrap;
+      width: calc(100% - 99px);
+    }
+
+    #refresh {
+      background: none;
+      border: none;
+      padding: 0 0 0 5px;
+    }
+
+    #refresh > span {
+      font-size: 21px;
+      opacity: .5;
+      text-shadow: 0 1px 0 #fff;
+    }
+
+    #refresh:hover > span, #refresh:focus > span {
+      opacity: .7;
+    }
+
+    .toggle-active {
+      opacity: .7 !important;
+    }
+
+    #injected-html:before {
+      content: "HTML source: ";
+    }
+
+    .you-won {
+      color: #1abc9c;
+      text-align: center;
+    }
+
+    .tagsinput {
+      height: auto;
+      margin: 0;
+    }
+
+    .tagsinput .tag {
+      padding: 6px 13px 8px 13px;
+    }
+
+    .tagsinput .tag.tag-pending-verification {
+      background-color: #d8d8d8 !important;
+    }
+
+    .tagsinput .tag:hover {
+      padding: 6px 13px 8px 13px;
+    }
+  </style>
 </head>
 <body>
-  <p>
 
+  <div class="flat-window-container">
+    <div class="flat-window-header">
+      <div class="flat-window-button-group flat-window-middle">
+        <div class="flat-window-button flat-window-button-close"></div>
+        <div class="flat-window-button flat-window-button-minimize"></div>
+        <div class="flat-window-button flat-window-button-maximize"></div>
+      </div>
+      <div class="flat-window-title-bar flat-window-middle text-center">
+        <span>Text Viewer</span>
+      </div>
+    </div>
+    <div class="flat-window-body">
+      <div class="flat-window-title-bar flat-window-middle text-center">
+        <pre id="code"></pre>
+        <script style="display: none;">
+          var str = `function escape(input) {
+  // warm up
+  // script should be executed without user interaction
+  return '<input type="text" value="' + input + '">';
+}`
+          document.getElementById('code').innerText = str;
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    对输入的内容没有任何措施，直接显示，很容易被注入，比如添加:<span id="code1"></span>
+    <script>
+      var str = `"> <script>alert(1) \<\/script>`;
+      document.getElementById('code1').innerText = str;
+    </script>
+    ，input里面包含有script执行脚本，就会在html渲染的时候执行，从而达到注入的目的
+  </p>
+  <p>操作</p>
+  <br>
+  <input type="text" placeholder="注入内容">
+
+  <p>
+    参考链接：
+    <hr>
+    <a href="https://tech.meituan.com/2018/09/27/fe-security.html">https://tech.meituan.com/2018/09/27/fe-security.html</a>
+    <br>
+    <a href="http://prompt.ml/0">http://prompt.ml/0</a>
   </p>
 </body>
 </html>
