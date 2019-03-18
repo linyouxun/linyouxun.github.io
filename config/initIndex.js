@@ -10,6 +10,7 @@ const rootPath = path.resolve(__dirname, '../');
 // 默认过滤文件夹
 const filterFiles = {
   'config': true,
+  'static': true,
   'node_modules': true
 }
 
