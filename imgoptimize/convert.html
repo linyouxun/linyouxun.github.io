@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jpg自上而下显示和渐进式显示</title>
+</head>
+<body>
+  <p>
+    Baseline JPEG
+    <span>这种类型的JPEG文件存储方式是按从上到下的扫描方式，把每一行顺序的保存在JPEG文件中。打开这个文件显示它的内容时，数据将按照存储时的顺序从上到下一行一行的被显示出来，直到所有的数据都被读完，就完成了整张图片的显示。如果文件较大或者网络下载速度较慢，那么就会看到图片被一行行加载的效果，这种格式的JPEG没有什么优点，因此，一般都推荐使用Progressive JPEG。</span>
+  </p>
+  <p>
+    Progressive JPEG
+    <span>和Baseline一遍扫描不同，Progressive JPEG文件包含多次扫描，这些扫描顺寻的存储在JPEG文件中。打开文件过程中，会先显示整个图片的模糊轮廓，随着扫描次数的增加，图片变得越来越清晰。这种格式的主要优点是在网络较慢的情况下，可以看到图片的轮廓知道正在加载的图片大概是什么。在一些网站打开较大图片时，你就会注意到这种技术。</span>
+  </p>
+  <p>
+    linux操作
+    <span>
+      检测是否为progressive jpeg ： identify -verbose filename.jpg | grep Interlace（如果输出 None 说明不是progressive jpeg；如果输出 Plane 说明是 progressive jpeg。）
+      <br/>
+      将basic jpeg转换成progressive jpeg：> convert infile.jpg -interlace Plane outfile.jpg
+    </span>
+  </p>
+  <p>
+    参考链接：
+    <hr>
+    <a href="http://www.cnblogs.com/beyang/p/7597819.html">linux下ImageMagick安装和使用</a>
+    <a href="https://blog.csdn.net/qingfenglu/article/details/81408530">linux convert 常用命令</a>
+    <a href="https://blog.csdn.net/wonengguwozai/article/details/53122629">linux强大的convert命令(可以对图像做各种处理！)</a>
+    <a href="http://blog.jobbole.com/44038/">使用渐进式 JPEG 来提升用户体验</a>
+    <a href="http://www.cnblogs.com/love-snow/articles/8252644.html">linux 安装Jpegoptim，jpegoptim使用教程</a>
+
+  </p>
+</body>
+</html>
